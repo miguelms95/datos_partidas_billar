@@ -1,16 +1,14 @@
 from BeautifulSoup import BeautifulSoup
 import requests
 
-listaDePartidas = []
-
 def extraerdatos(url):
+    listaDePartidas = []
     page = requests.get(url);
-    if (page.status_code == 200):
+    if (page.status_code == 200):   # la página web ha cargado correctamente
         html = BeautifulSoup(page.content.decode('utf-8', 'ignore'))
         todasLasFilas = html.findAll('tr');
         for fila in todasLasFilas:
             columnasDeCadaFila = fila.findAll('td');
-            #print columnasDeCadaFila
             if(len(columnasDeCadaFila)>=12):
                 imagenPaisIzq = columnasDeCadaFila[7].find('img')
                 imagenPaisDer = columnasDeCadaFila[11].find('img')
