@@ -15,10 +15,10 @@ def extraerdatos(url):
                 imagenPaisDer = columnasDeCadaFila[11].find('img')
                 if(imagenPaisIzq != None and imagenPaisIzq.get('alt') == 'ESP'):    #Local que aparece a la izquierda
                     listaDePartidas.append(fila)
-                    #print fila
+                    #print(fila)
                 if (imagenPaisDer != None and imagenPaisDer.get('alt') == 'ESP'):   #Visitante que aparece a la derecha
                     listaDePartidas.append(fila)
-                    #print fila
+                    #print(fila)
         return listaDePartidas
 
-print extraerdatos('http://billiardapps.com/drawresults.asp?db=epc&client=&eventnr=2017100&header=no&eventheader=yes&showtabs=yes&tab=Tournament&footer=yes&tournament=W10')
+print(extraerdatos('http://billiardapps.com/drawresults.asp?db=epc&client=&eventnr=2017100&header=no&eventheader=yes&showtabs=yes&tab=Tournament&footer=yes&tournament=W10'))
