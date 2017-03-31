@@ -2,6 +2,8 @@
 from BeautifulSoup import BeautifulSoup
 import requests
 
+URL_WEB = 'http://billiardapps.com/drawresults.asp?db=epc&client=&eventnr=2017100&header=no&eventheader=yes&showtabs=yes&tab=Tournament&footer=yes&tournament=W10'
+
 def extraerdatos(url):
     listaDePartidas = []
     page = requests.get(url);
@@ -21,6 +23,7 @@ def extraerdatos(url):
                     #print(fila)
         return listaDePartidas
 def extractDataFromTable(list):
+    listaPartidos = []
     for item in list:
         cadena_fila = ''
         row_content = item.findAll('td')
@@ -32,12 +35,25 @@ def extractDataFromTable(list):
                     cadena_fila += column.find('a').string
             elif(column.find('img') != None):
                 try:
-                    cadena_fila += column.find('img').get('alt')
-                    print cadena_fila
+                    cadena_fila += ' (' +column.find('img').get('alt')+')'
+                    #print cadena_fila
                 except TypeError:
-                    cadena_fila += ' '
+                    cadena_fila += ''
+            else:
+                dato = str(column.string)
+                while ' ' in dato:
+                    dato = dato.replace(' ', '')
+                dato = dato.replace('\n','')
+                dato = dato.replace('\t','')
+                dato = dato.replace('\r','')
+                if(dato != ' -'):
+                    cadena_fila += ' ' + dato + ' '
+        listaPartidos.append(cadena_fila)
+    return listaPartidos
         #print '\n'
 
-print 'Match | Date | Time | D | T | RT | \t \t == Match =='
-extractDataFromTable(extraerdatos('http://billiardapps.com/drawresults.asp?db=epc&client=&eventnr=2017100&header=no&eventheader=yes&showtabs=yes&tab=Tournament&footer=yes&tournament=W10'))
-#print(extraerdatos('http://billiardapps.com/drawresults.asp?db=epc&client=&eventnr=2017100&header=no&eventheader=yes&showtabs=yes&tab=Tournament&footer=yes&tournament=W10'))
+def printData(lista):
+    for item in lista:
+        print item
+print 'Match | Date | Time | T | RT | \t \t == Match =='
+printData(extractDataFromTable(extraerdatos(URL_WEB)))
