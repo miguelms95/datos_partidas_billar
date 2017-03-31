@@ -22,6 +22,7 @@ def extraerdatos(url):
                     listaDePartidas.append(fila)
                     #print(fila)
         return listaDePartidas
+
 def extractDataFromTable(list):
     listaPartidos = []
     for item in list:
@@ -30,16 +31,16 @@ def extractDataFromTable(list):
         for column in row_content:
             if(column.find('a') != None):
                 if(column.find('a').find('strong') != None):
-                    cadena_fila += column.find('a').find('strong').string
+                    cadena_fila += column.find('a').find('strong').string # Nombre jugador
                 else:
                     cadena_fila += column.find('a').string
-            elif(column.find('img') != None):
+            elif(column.find('img') != None):   # Pais jugador en el alt de la imagen
                 try:
                     cadena_fila += ' (' +column.find('img').get('alt')+')'
                     #print cadena_fila
                 except TypeError:
                     cadena_fila += ''
-            else:
+            else:                               # otros datos
                 dato = str(column.string)
                 while ' ' in dato:
                     dato = dato.replace(' ', '')
