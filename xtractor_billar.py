@@ -47,7 +47,7 @@ def extractDataFromTable(list):
                 dato = dato.replace('\n','')
                 dato = dato.replace('\t','')
                 dato = dato.replace('\r','')
-                if(dato != ' -'):
+                if(dato != '-'):
                     cadena_fila += ' ' + dato + ' '
         listaPartidos.append(cadena_fila)
     return listaPartidos
@@ -56,5 +56,5 @@ def extractDataFromTable(list):
 def printData(lista):
     for item in lista:
         print item
-print 'Match | Date | Time | T | RT | \t \t == Match =='
+print 'Match | Date | Time | T | RT | \t\t==== Match ====\t\t | Match status'
 printData(extractDataFromTable(extraerdatos(URL_WEB)))
